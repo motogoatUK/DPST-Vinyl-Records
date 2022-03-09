@@ -28,7 +28,7 @@ public class Record {
 		private int recordId; // considered using Long (BIGINT) but int gives us  2,147,483,647 records,
 						// which is more than enough for a personal collection given that there are
 						// about 130,000,000 songs in the world (in 1200 years)
-		@ManyToOne (cascade = CascadeType.ALL)
+		@ManyToOne 
 		@JoinColumn(name = "artistId")
 		private Artist artist; // id of artist
 		private String sideA,sideB; // contains song titles
