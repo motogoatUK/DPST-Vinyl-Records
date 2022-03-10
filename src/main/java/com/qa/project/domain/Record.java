@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.qa.project.spindleSize;
 
 import lombok.Data;
@@ -28,14 +29,16 @@ public class Record {
 						// which is more than enough for a personal collection given that there are
 						// about 130,000,000 songs in the world (in 1200 years)
 		@ManyToOne (cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-		@JoinColumn(name = "artistId")
+		@JoinColumn(name = "artist") 
+		//@JsonBackReference(value="artist")
 		private Artist artist; // The record's artist
 		private String sideA,sideB; // contains song titles
 		private String observation; // condition (observation - condition is a mySQL reserved word)
 		@Enumerated(EnumType.STRING)
 		private spindleSize spindle;
 		@ManyToOne (cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-		@JoinColumn(name = "locationId")
+		@JoinColumn(name = "location")
+		//@JsonBackReference(value="location")
 		private Location location; // The record's location
 		
 }

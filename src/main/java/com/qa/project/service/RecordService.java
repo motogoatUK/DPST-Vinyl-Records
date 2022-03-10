@@ -15,7 +15,14 @@ public class RecordService implements ServiceInterface<Record> {
 	}
 
 	public Record create(Record newRecord) {
+		
 		return this.repo.save(newRecord);
+	}
+	public List<Record> createMulti(List<Record> newRecords){
+		for (Record records:newRecords) {
+			this.repo.save(records);
+			}
+	return newRecords;
 	}
 
 	public List<Record> readAll() {

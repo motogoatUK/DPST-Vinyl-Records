@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class Location {
 	private String locationName;
 	@OneToMany (mappedBy = "location")
 	@JsonIgnore
-	private Set<Record> record;
+	//@JsonManagedReference(value="location")
+	private Set<Record> location;
 
 }

@@ -16,4 +16,6 @@ import com.qa.project.domain.Record;
 		public abstract List<Record> getSmall();
 		@Query(value = "SELECT * FROM record WHERE spindle LIKE 'SS_LARGE'", nativeQuery = true)
 		public abstract List<Record> getLarge();
+		//@Query(value= "SELECT record_id,artist.artist_name,sidea,sideb,spindle,observation,location.location_name FROM RECORD JOIN ARTIST ON record.artist = artist.artist_id JOIN location on record.location = location_id;",nativeQuery = true)
+		//public abstract 
 }
