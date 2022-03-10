@@ -44,5 +44,8 @@ public List<Record> getLargeRecord() {
 
 // Update.
 // Delete.
-
+@DeleteMapping("/delete/{id}")
+public boolean delete(@PathVariable int id) {
+	return this.service.delete(id);
+}
 }
