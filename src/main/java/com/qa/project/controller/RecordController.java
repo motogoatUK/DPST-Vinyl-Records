@@ -20,11 +20,24 @@ public RecordController(RecordService service) {
 }
 // CRUD
 // Create.
+@PostMapping("/create")
+public Record createRecord(@RequestBody Record info) {
+	return this.service.create(info);
+}
 // Read. readALL - get - list
 @GetMapping("/list")
 public List<Record> getRecord() {
 	return new ArrayList<Record>(this.service.readAll());
 }
+@GetMapping("/list/small")
+public List<Record> getSmallRecord() {
+	return new ArrayList<Record>(this.service.small());
+}
+@GetMapping("/list/large")
+public List<Record> getLargeRecord() {
+	return new ArrayList<Record>(this.service.large());
+}
+
 // Update.
 // Delete.
 

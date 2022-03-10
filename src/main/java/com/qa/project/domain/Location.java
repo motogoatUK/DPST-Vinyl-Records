@@ -1,12 +1,13 @@
 package com.qa.project.domain;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,15 +19,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 
-public class Artist {
-	@Id //marks it as the primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //makes it auto-increment
-	private int artistId;
-	//@Column(unique = true)
-	private String artistName;
+public class Location {
+	@Id // marks it as the primary key
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // makes it auto-increment
+	private int locationId;
+//	@Column(unique = true)
 	
-	@OneToMany (mappedBy = "artist")
+	private String locationName;
+	@OneToMany (mappedBy = "location")
 	@JsonIgnore
-	private Set<Record> record = new HashSet<>();
-	
+	private Set<Record> record;
+
 }
