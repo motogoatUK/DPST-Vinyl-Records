@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Artist {
 	
 	@OneToMany (mappedBy = "artist")
 	@JsonIgnore
-	private Set<Record> record = new HashSet<>();
+	//@JsonManagedReference(value="artist")
+	private Set<Record> artist = new HashSet<>();
 	
 }

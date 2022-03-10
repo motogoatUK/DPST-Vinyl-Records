@@ -10,7 +10,7 @@ import com.qa.project.domain.Record;
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/record")
 public class RecordController {
 	@Autowired
 private RecordService service;
@@ -23,6 +23,10 @@ public RecordController(RecordService service) {
 @PostMapping("/create")
 public Record createRecord(@RequestBody Record info) {
 	return this.service.create(info);
+}
+@PostMapping("/createMulti")
+public List<Record> createMultiRecord(@RequestBody List<Record> info) {
+	return this.service.createMulti(info);
 }
 // Read. readALL - get - list
 @GetMapping("/list")
