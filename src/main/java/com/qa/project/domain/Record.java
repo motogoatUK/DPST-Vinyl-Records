@@ -14,6 +14,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.qa.project.spindleSize;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.qa.project.spindleSize;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +33,7 @@ public class Record {
 	
 		@Id //marks it as the primary key
 		@GeneratedValue(strategy = GenerationType.IDENTITY) //makes it auto-increment
+
 		private int recordId; // considered using Long (BIGINT) but int gives us  2,147,483,647 records,
 		                      // which is more than enough for a personal collection given that there are only 
 		                      // about 130,000,000 songs in the world (in 1200 years)
@@ -42,5 +49,6 @@ public class Record {
 		@JoinColumn(name = "location") // foreign key -> locationId
 		//@JsonBackReference(value="location")
 		private Location location; // The record's location
+
 		
 }
