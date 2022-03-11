@@ -15,14 +15,15 @@ public class RecordService implements ServiceInterface<Record> {
 	}
 
 	public Record create(Record newRecord) {
-		
+
 		return this.repo.save(newRecord);
 	}
-	public List<Record> createMulti(List<Record> newRecords){
-		for (Record records:newRecords) {
+
+	public List<Record> createMulti(List<Record> newRecords) {
+		for (Record records : newRecords) {
 			this.repo.save(records);
-			}
-	return newRecords;
+		}
+		return newRecords;
 	}
 
 	public List<Record> readAll() {
@@ -40,16 +41,21 @@ public class RecordService implements ServiceInterface<Record> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
+//delete by Id
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.repo.deleteById(id);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
+
 	// return list of records with small spindles
 	public List<Record> small() {
 		return this.repo.getSmall();
 	}
+
 	// return list of records with large spindles
 	public List<Record> large() {
 		return this.repo.getLarge();
