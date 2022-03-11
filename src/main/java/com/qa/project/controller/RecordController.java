@@ -42,7 +42,12 @@ public List<Record> getLargeRecord() {
 	return new ArrayList<Record>(this.service.large());
 }
 
-// Update.
+// Update. - put request
+@PutMapping("/update/{id}")
+public Record updateRecord(@PathVariable int id, @RequestBody Record newInfo) {
+	return this.service.update(id, newInfo);
+}
+
 // Delete.
 @DeleteMapping("/delete/{id}")
 public boolean delete(@PathVariable int id) {

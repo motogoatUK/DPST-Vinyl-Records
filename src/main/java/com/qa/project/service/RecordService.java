@@ -1,13 +1,14 @@
 package com.qa.project.service;
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.qa.project.domain.Record;
 import com.qa.project.repo.RecordRepo;
 
 @Service
 public class RecordService implements ServiceInterface<Record> {
+	@Autowired
 	private RecordRepo repo;
 
 	public RecordService(RecordRepo repo) {
@@ -36,11 +37,40 @@ public class RecordService implements ServiceInterface<Record> {
 		return null;
 	}
 
-	@Override
-	public Record update(int id, Record t) {
-		// TODO Auto-generated method stub
-		return null;
+// Update. commented lines for use when logger implemented
+	// public String update(int id, Record newInfo) {
+	public Record update(int id, Record newInfo) {
+		Record orig = this.repo.findById(id).get();
+		// int countFlag = 0;
+		if (newInfo.getArtist() != null) {
+			orig.setArtist(newInfo.getArtist());
+			// countFlag++;
+		}
+		if (newInfo.getSideA() != null) {
+			orig.setSideA(newInfo.getSideA());
+			// countFlag++;
+		}
+		if (newInfo.getSideB() != null) {
+			orig.setSideB(newInfo.getSideB());
+			// countFlag++;
+		}
+		if (newInfo.getObservation() != null) {
+			orig.setObservation(newInfo.getObservation());
+			// countFlag++;
+		}
+		if (newInfo.getSpindle() != null) {
+			orig.setSpindle(newInfo.getSpindle());
+			// countFlag++;
+		}
+		if (newInfo.getLocation() != null) {
+			orig.setLocation(newInfo.getLocation());
+			// countFlag++;
+		}
+
+		// Logger.info(countFlag+" fields updated in record #"+id);
+		return this.repo.save(orig);
 	}
+
 //delete by Id
 	public boolean delete(int id) {
 		try {
