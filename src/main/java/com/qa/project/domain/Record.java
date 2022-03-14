@@ -20,12 +20,14 @@ import javax.persistence.Id;
 
 import com.qa.project.spindleSize;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonAutoDetect(fieldVisibility =Visibility.ANY)
 public class Record {
 // Declare variables
