@@ -25,7 +25,7 @@ import com.qa.project.domain.Record;
 @ActiveProfiles(profiles = "test")
 @AutoConfigureMockMvc
 
-public class VinylRecordsServiceTesting {
+public class VinylRecordsIntegrationTesting {
 
 //	@MockBean
 //	private RecordService  service;
@@ -46,7 +46,7 @@ public class VinylRecordsServiceTesting {
 //		testLocation.setLocationName("Box #1");
 //		
 //	}
-	private final String URL = "http://localhost:8080/record/";
+	private final String URL = "http://localhost:8080/record";
 	
 	
 
@@ -66,7 +66,7 @@ public class VinylRecordsServiceTesting {
 		//							{"location_id":2,"location_name":"Box #3"}
 		String expectedResponse = jsonifier.writeValueAsString(testRecord);
 
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, URL + "create")
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, URL + "/create")
 				.contentType(MediaType.APPLICATION_JSON).content(jsonifier.writeValueAsString(testRecord))
 				.accept(MediaType.APPLICATION_JSON);
 
@@ -87,12 +87,12 @@ public class VinylRecordsServiceTesting {
 		testLocation1.setLocationId(0); testLocation1.setLocationName("Box #1");
 		testLocation2.setLocationId(1); testLocation2.setLocationName("Box #2");
 		List<Record> expectedResult = List.of(
-				new Record(1, testArtist1, "Agadoo", "Agadoo (remix B)" , "OK", spindleSize.SS_SMALL, testLocation1), 
-				new Record(2, testArtist2, "Hungry Like The Wolf", null, "Great", spindleSize.SS_LARGE, testLocation2));
+				new Record(0, testArtist1, "Agadoo", "Agadoo (remix B)" , "OK", spindleSize.SS_SMALL, testLocation1), 
+				new Record(1, testArtist2, "Hungry Like The Wolf", null, "Great", spindleSize.SS_LARGE, testLocation2));
 				
 		
 		// set up request
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, URL + "list");
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, URL + "/list");
 		
 		// set up expectations
 		ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
@@ -100,6 +100,58 @@ public class VinylRecordsServiceTesting {
 		
 		// perform
 		this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContent);
+	}
+	@Test
+	void testUpdate() throws Exception {
+		// resources
+		
+		Artist testArtist = new Artist();
+		testArtist.setArtistId(1);	testArtist.setArtistName("Duran Duran");
+		Location testNewLocation = new Location();
+		testNewLocation.setLocationId(3); testNewLocation.setLocationName("Box #3");
+		
+		Record testRecord = new Record(1, testArtist, "Hungry Like The Wolf", null, "Great", spindleSize.SS_SMALL, testNewLocation);
+		
+		String expectedResponse = jsonifier.writeValueAsString(testRecord);
+		
+		
+		// set up request
+
+		String testUpdate = "{\"spindle\":\"SS_SMALL\",\"location\":{\"locationName\":\"Box #3\"}}";
+		
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT, URL + "/update/1")
+				.contentType(MediaType.APPLICATION_JSON).content(testUpdate)
+				.accept(MediaType.APPLICATION_JSON);
+		
+		// set up expectations
+		ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
+		ResultMatcher matchContent = MockMvcResultMatchers.content().json(expectedResponse);
+		
+		// perform
+		this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContent);
+	}
+	
+	
+	@Test
+	
+	void testDelete() throws Exception {
+		// set up request
+
+					// Try to delete a record that exists then try a record that doesn't exist.
+					// Should return true for existing and then return false
+					
+					MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE, URL + "/delete/0")
+							.accept(MediaType.ALL);
+					MockHttpServletRequestBuilder mockRequest1 = MockMvcRequestBuilders.request(HttpMethod.DELETE, URL + "/delete/10")
+							.accept(MediaType.ALL);
+		// set up expectations
+				ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
+				ResultMatcher matchContentTrue = MockMvcResultMatchers.content().string("true");
+				ResultMatcher matchContentFalse = MockMvcResultMatchers.content().string("false");
+		// perform test
+		this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContentTrue);
+		
+		this.mock.perform(mockRequest1).andExpect(matchStatus).andExpect(matchContentFalse);
 	}
 
 }
