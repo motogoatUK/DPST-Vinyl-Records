@@ -76,6 +76,7 @@ public class RecordService implements ServiceInterface<Record> {
 		try {
 			this.repo.deleteById(id);
 		} catch (Exception e) {
+			//LOGGER.info("Record #"+id+" not deleted");
 			return false;
 		}
 		return true;
