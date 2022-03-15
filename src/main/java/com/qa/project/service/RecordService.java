@@ -10,35 +10,33 @@ import com.qa.project.repo.RecordRepo;
 public class RecordService implements ServiceInterface<Record> {
 	@Autowired
 	private RecordRepo repo;
-
 	public RecordService(RecordRepo repo) {
 		this.repo = repo;
 	}
-
+	@Override
 	public Record create(Record newRecord) {
 
 		return this.repo.save(newRecord);
 	}
-
 	public List<Record> createMulti(List<Record> newRecords) {
 		for (Record records : newRecords) {
 			this.repo.save(records);
 		}
 		return newRecords;
 	}
-
+	@Override
 	public List<Record> readAll() {
 		return this.repo.findAll();
 	}
 
 	@Override
 	public Record readById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repo.findById(id).get();
 	}
 
 // Update. commented lines for use when logger implemented
 	// public String update(int id, Record newInfo) {
+	@Override
 	public Record update(int id, Record newInfo) {
 		Record orig = this.repo.findById(id).get();
 		// int countFlag = 0;
@@ -72,6 +70,7 @@ public class RecordService implements ServiceInterface<Record> {
 	}
 
 //delete by Id
+	@Override
 	public boolean delete(int id) {
 		try {
 			this.repo.deleteById(id);
