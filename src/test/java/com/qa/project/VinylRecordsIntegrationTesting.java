@@ -1,14 +1,15 @@
 package com.qa.project;
 
 import java.util.List;
-import org.springframework.http.MediaType;
 
+import org.springframework.http.MediaType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpMethod;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -32,18 +33,12 @@ public class VinylRecordsIntegrationTesting {
 
 	@Autowired
 	private ObjectMapper jsonifier;
-
-//	@BeforeEach
-//	public void setUp() {
-//		Artist testArtist = new Artist();
-//		testArtist.setArtistName("Test Artist");
-//		Location testLocation = new Location();
-//		testLocation.setLocationName("Box #1");
-//		
-//	}
+	
 	private final String URL = "http://localhost:8080/record";
 
 	@Test
+	// @DirtiesContext - Indicates the test modifies the state of the repo and restores the bean after the test
+	@DirtiesContext
 	public void testCreate() throws Exception {
 		// resources
 		Artist testArtist = new Artist();
@@ -67,7 +62,39 @@ public class VinylRecordsIntegrationTesting {
 
 		// set up expectations
 		String expectedResponse = jsonifier.writeValueAsString(testRecord);
-		ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
+		ResultMatcher matchStatus = MockMvcResultMatchers.status().isCreated();
+		ResultMatcher matchContent = MockMvcResultMatchers.content().json(expectedResponse);
+
+		// perform the test
+		this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContent);
+	}
+	
+	@Test
+	@DirtiesContext
+	public void testCreateMulti() throws Exception {
+		// resources
+		Artist testArtist1 = new Artist(), testArtist2 = new Artist();
+		testArtist1.setArtistId(0);
+		testArtist1.setArtistName("Black Lace");
+		testArtist2.setArtistId(1);
+		testArtist2.setArtistName("Duran Duran");
+		Location testLocation1 = new Location(), testLocation2 = new Location();
+		testLocation1.setLocationId(0);
+		testLocation1.setLocationName("Box #1");
+		testLocation2.setLocationId(1);
+		testLocation2.setLocationName("Box #2");
+		List<Record> expectedResult = List.of(
+				new Record(2, testArtist1, "Agadoo", "Agadoo (remix B)", "OK", spindleSize.SS_SMALL, testLocation1),
+				new Record(1, testArtist2, "Hungry Like The Wolf", null, "Great", spindleSize.SS_LARGE, testLocation2));
+
+		// set up request
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, URL + "/createMulti")
+				.contentType(MediaType.APPLICATION_JSON).content(jsonifier.writeValueAsString(expectedResult))
+				.accept(MediaType.APPLICATION_JSON);
+
+		// set up expectations
+		String expectedResponse = jsonifier.writeValueAsString(expectedResult);
+		ResultMatcher matchStatus = MockMvcResultMatchers.status().isCreated();
 		ResultMatcher matchContent = MockMvcResultMatchers.content().json(expectedResponse);
 
 		// perform the test
@@ -127,13 +154,14 @@ public class VinylRecordsIntegrationTesting {
 			}
 
 	@Test
+	@DirtiesContext
 	void testUpdate() throws Exception {
 		// resources
 		Artist testArtist = new Artist();
 		testArtist.setArtistId(1);
 		testArtist.setArtistName("Duran Duran");
 		Location testNewLocation = new Location();
-		testNewLocation.setLocationId(3);
+		testNewLocation.setLocationId(2);
 		testNewLocation.setLocationName("Box #3");
 
 		Record testRecord = new Record(1, testArtist, "Hungry Like The Wolf", null, "Great 80's tune!", spindleSize.SS_LARGE,
@@ -147,7 +175,7 @@ public class VinylRecordsIntegrationTesting {
 
 		// set up expectations
 		String expectedResponse = jsonifier.writeValueAsString(testRecord);
-		ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
+		ResultMatcher matchStatus = MockMvcResultMatchers.status().isAccepted();
 		ResultMatcher matchContent = MockMvcResultMatchers.content().json(expectedResponse);
 
 		// perform
