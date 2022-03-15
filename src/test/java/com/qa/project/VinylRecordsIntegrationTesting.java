@@ -116,7 +116,7 @@ public class VinylRecordsIntegrationTesting {
 
 
 				// set up request
-				MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, URL + "/list/"+id);
+				MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, URL + "/id/"+id);
 
 				// set up expectations
 				ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
