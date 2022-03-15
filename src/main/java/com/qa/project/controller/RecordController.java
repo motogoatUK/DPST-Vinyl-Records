@@ -1,10 +1,10 @@
 package com.qa.project.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,40 +24,40 @@ public RecordController(RecordService service) {
 // CRUD
 // Create.
 @PostMapping("/create")
-public Record createRecord(@RequestBody Record info) {
-	return this.service.create(info);
+public ResponseEntity<Record> createRecord(@RequestBody Record info) {
+	return new ResponseEntity<>(this.service.create(info), HttpStatus.CREATED);
 }
 @PostMapping("/createMulti")
-public List<Record> createMultiRecord(@RequestBody List<Record> info) {
-	return this.service.createMulti(info);
+public ResponseEntity<List<Record>> createMultiRecord(@RequestBody List<Record> info) {
+	return new ResponseEntity<>(this.service.createMulti(info), HttpStatus.CREATED);
 }
 // Read. readALL - get - list
 @GetMapping("/list")
-public List<Record> getRecord() {
-	return new ArrayList<Record>(this.service.readAll());
+public ResponseEntity<List<Record>> getRecord() {
+	return new ResponseEntity<List<Record>>(this.service.readAll(), HttpStatus.OK);
 }
 @GetMapping("/id/{id}")
-public Record getById(@PathVariable int id) {
-	return this.service.readById(id);
+public ResponseEntity<Record> getById(@PathVariable int id) {
+	return new ResponseEntity<>(this.service.readById(id), HttpStatus.OK);
 }
 @GetMapping("/list/small")
-public List<Record> getSmallRecord() {
-	return new ArrayList<Record>(this.service.small());
+public ResponseEntity<List<Record>> getSmallRecord() {
+	return new ResponseEntity<List<Record>>(this.service.small(), HttpStatus.OK);
 }
 @GetMapping("/list/large")
-public List<Record> getLargeRecord() {
-	return new ArrayList<Record>(this.service.large());
+public ResponseEntity<List<Record>> getLargeRecord() {
+	return new ResponseEntity<>(this.service.large(), HttpStatus.OK);
 }
 
 // Update. - put request
 @PutMapping("/update/{id}")
-public Record updateRecord(@PathVariable int id, @RequestBody Record newInfo) {
-	return this.service.update(id, newInfo);
+public ResponseEntity<Record> updateRecord(@PathVariable int id, @RequestBody Record newInfo) {
+	return new ResponseEntity<Record>(this.service.update(id, newInfo),HttpStatus.ACCEPTED);
 }
 
 // Delete.
 @DeleteMapping("/delete/{id}")
-public boolean delete(@PathVariable int id) {
-	return this.service.delete(id);
+public ResponseEntity<Boolean> delete(@PathVariable int id) {
+	return new ResponseEntity<Boolean>(this.service.delete(id), HttpStatus.OK);
 }
 }

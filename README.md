@@ -41,6 +41,28 @@ I got held up on create when posting multiple objects until Chris pointed out th
 
 <insert screenshots here>
 
-### I spent longer than I should have setting up an Azure MySQL database for this project.
+# I spent longer than I should have setting up an Azure MySQL database for this project.
 I thought it would be a good idea to use some of my gained knowledge, having recently passed the Azure fundamentals AZ-900 exam as part of this bootcamp.
+
+
+### POSTMAN url's:
+
+Create:
+localhost:8080/record/create		- supply a JSON object containing the record to add.
+localhost:8080/record/createMulti	- supply a JSON Array containing 1 or more records.
+
+
+Read:
+localhost:8080/record/list
+localhost:8080/record/list/small	- returns a JSON array of records that have a small spindle size.
+localhost:8080/record/list/large	- returns a JSON array of records that have a large spindle size.
+localhost:8080/record/id/<i>id</i>	- returns a JSON object of a single record 
+
+
+Update:
+localhost:8080/record/update/<i>id</i> - supply a JSON object containing the only the fields that need to be changed
+
+
+Delete:
+localhost:8080/record/delete/<i>id</i> - deletes the record with id
 
