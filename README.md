@@ -40,3 +40,7 @@ I got held up on create when posting multiple objects until Chris pointed out th
 ### Testing using Postman:
 
 <insert screenshots here>
+
+### I spent longer than I should have setting up an Azure MySQL database for this project.
+I thought it would be a good idea to use some of my gained knowledge, having recently passed the Azure fundamentals AZ-900 exam as part of this bootcamp.
+
