@@ -94,8 +94,8 @@ public class VinylRecordsUnitTests {
 		Location testNewLocation = new Location();
 		testNewLocation.setLocationId(3);
 		testNewLocation.setLocationName("Box #3");
-		Record testRecord = new Record(1, testArtist, "Hungry Like The Wolf", null, "Great", spindleSize.SS_LARGE,testLocation);
-		Record testUpdatedRecord = new Record(1, testArtist, "Hungry Like The Wolf", null, "Great 80's tune!",spindleSize.SS_LARGE, testNewLocation);
+		Record testRecord = new Record(id, testArtist, "Hungry Like The Wolf", null, "Great", spindleSize.SS_LARGE,testLocation);
+		Record testUpdatedRecord = new Record(id, testArtist, "Hungry Like The Wolf", null, "Great 80's tune!",spindleSize.SS_LARGE, testNewLocation);
 
 		Optional<Record> TEST_OPTIONAL = Optional.of(testRecord);
 
@@ -110,4 +110,5 @@ public class VinylRecordsUnitTests {
 		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
 		Mockito.verify(this.repo, Mockito.times(1)).save(Mockito.any(Record.class));
 	}
+
 }

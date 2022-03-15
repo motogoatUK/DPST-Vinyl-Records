@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.project.domain.Artist;
 import com.qa.project.domain.Location;
@@ -101,6 +102,30 @@ public class VinylRecordsIntegrationTesting {
 		// perform
 		this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContent);
 	}
+	
+	@Test
+	void testReadById() throws Exception {
+		int id = 1;
+		// resources
+				Artist testArtist = new Artist();	
+				testArtist.setArtistId(1);
+				testArtist.setArtistName("Duran Duran");
+				Location testLocation = new Location();
+				testLocation.setLocationId(1);
+				testLocation.setLocationName("Box #2");
+				Record expectedResult = new Record(id, testArtist, "Hungry Like The Wolf", null, "Great", spindleSize.SS_LARGE, testLocation);
+
+
+				// set up request
+				MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, URL + "/list/"+id);
+
+				// set up expectations
+				ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
+				ResultMatcher matchContent = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedResult));
+
+				// perform
+				this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContent);
+			}
 
 	@Test
 	void testUpdate() throws Exception {
@@ -150,6 +175,56 @@ public class VinylRecordsIntegrationTesting {
 		// perform tests
 		this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContentTrue);
 		this.mock.perform(mockRequest1).andExpect(matchStatus).andExpect(matchContentFalse);
+	}
+	@Test
+	void testGetLarge() throws Exception {
+		// resources
+		Artist testArtist = new Artist();	
+		testArtist.setArtistId(1);
+		testArtist.setArtistName("Duran Duran");
+		Location testLocation = new Location();
+		testLocation.setLocationId(1);
+		testLocation.setLocationName("Box #2");
+		List<Record> expectedResult = List.of(
+				
+				new Record(1, testArtist, "Hungry Like The Wolf", null, "Great", spindleSize.SS_LARGE, testLocation));
+
+		// set up request
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, URL + "/list/large");
+
+		// set up expectations
+		ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
+		ResultMatcher matchContent = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedResult));
+
+		// perform
+		this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContent);
+	}
+	
+	
+	@Test
+	void testGetSmall() throws Exception {
+		// resources
+		Artist testArtist = new Artist();
+		testArtist.setArtistId(0);
+		testArtist.setArtistName("Black Lace");
+		
+		Location testLocation = new Location();
+		testLocation.setLocationId(0);
+		testLocation.setLocationName("Box #1");
+		
+		List<Record> expectedResult = List.of(
+				new Record(0, testArtist, "Agadoo", "Agadoo (remix B)", "OK", spindleSize.SS_SMALL, testLocation));
+				
+
+		// set up request
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, URL + "/list/small");
+
+		// set up expectations
+		ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
+		ResultMatcher matchContent = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedResult));
+
+		// perform
+		this.mock.perform(mockRequest).andExpect(matchStatus).andExpect(matchContent);
 	}
 
 }
