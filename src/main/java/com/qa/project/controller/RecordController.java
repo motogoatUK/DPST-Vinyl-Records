@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.qa.project.service.RecordService;
 import com.qa.project.domain.Record;
 
@@ -32,6 +35,10 @@ public List<Record> createMultiRecord(@RequestBody List<Record> info) {
 @GetMapping("/list")
 public List<Record> getRecord() {
 	return new ArrayList<Record>(this.service.readAll());
+}
+@GetMapping("/id/{id}")
+public Record getById(@PathVariable int id) {
+	return this.service.readById(id);
 }
 @GetMapping("/list/small")
 public List<Record> getSmallRecord() {
