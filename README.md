@@ -46,6 +46,28 @@ Spotify has a library of 82,000,000 songs (as of 2022) source: https://newsroom.
 ![Jira-dash2][Jira2]
 
 
+### Risk Assessment
+
+This Maven Springboot project used the following dependencies:
+	
+			spring-boot-starter-data-jpa
+	
+			spring-boot-starter-web
+	
+			org.springframework.boot
+			
+			spring-boot-devtools
+	
+			com.h2database
+		
+			mysql-connector-java
+	
+			org.projectlombok
+	
+			org.apache.logging.log4j
+			
+			
+All unused imports have been removed from the final code.
 
 
 ### Issues along the way:
