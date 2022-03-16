@@ -12,6 +12,7 @@
 [github2]:./qa-project-GitNetworkGraph.png
 [workbench]:./qa-project-persistence.png
 [coverage]:./qa-project-coverage.png
+[github-link](https://github.com/motogoatUK/DPST-Vinyl-Records)
 
 ## DFESW9 Project - VinylRecords
 
@@ -19,9 +20,11 @@
 A QA project in Java designed to allow the storing of a 7" Vinyl record collection along with locations. 
 Using Springboot & Maven.
 
-Added Jira integration. 07/03/2022 SDT.
+Added Jira & github integration. 07/03/2022 SDT.
 
-https://mototest.atlassian.net/jira/dashboards/10001
+Jira Dashboard: https://mototest.atlassian.net/jira/dashboards/10001
+
+https://github.com/motogoatUK/DPST-Vinyl-Records
 
 ERD diagram:
 
@@ -111,6 +114,8 @@ Delete:
 
 
 ## GitHub integration:
+
+Link to [Github repo][github-link]
 
 Github part way through:
 ![Git hub part-way][github1]
