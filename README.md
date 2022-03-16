@@ -12,7 +12,7 @@
 [github2]:./qa-project-GitNetworkGraph.png
 [workbench]:./qa-project-persistence.png
 [coverage]:./qa-project-coverage.png
-[github-link](https://github.com/motogoatUK/DPST-Vinyl-Records)
+[github-link]:https://github.com/motogoatUK/DPST-Vinyl-Records
 
 ## DFESW9 Project - VinylRecords
 
@@ -24,9 +24,9 @@ Added Jira & github integration. 07/03/2022 SDT.
 
 Jira Dashboard: https://mototest.atlassian.net/jira/dashboards/10001
 
-https://github.com/motogoatUK/DPST-Vinyl-Records
+Github (this) : https://github.com/motogoatUK/DPST-Vinyl-Records
 
-ERD diagram:
+#### ERD diagram:
 
 ![ERD diagram][simple]
 
