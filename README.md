@@ -11,12 +11,13 @@
 [github1]:./qa-project-githubNetworkThurs.png
 [github2]:./qa-project-GitNetworkGraph.png
 [workbench]:./qa-project-persistence.png
+[coverage]:./qa-project-coverage.png
 
 ## DFESW9 Project - VinylRecords
 
-
-A QA project designed to allow the storing of a 7" Vinyl record collection along with locations.
-
+### Why are we doing this? 
+A QA project in Java designed to allow the storing of a 7" Vinyl record collection along with locations. 
+Using Springboot & Maven.
 
 Added Jira integration. 07/03/2022 SDT.
 
@@ -116,5 +117,10 @@ Github part way through:
 
 Github at the end of project:
 ![Github at the end][github2]
+
+
+### Test Results:
+
+![Coverage report][coverage]
 
 &copy; 2022 Simon D. Thornes AMBCS
