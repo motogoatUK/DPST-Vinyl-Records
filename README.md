@@ -10,6 +10,7 @@
 [Azure]:./qa-project-AzureDB.png
 [github1]:./qa-project-githubNetworkThurs.png
 [github2]:./qa-project-GitNetworkGraph.png
+[workbench]:./qa-project-persistence.png
 
 ## DFESW9 Project - VinylRecords
 
@@ -61,14 +62,14 @@ I thought it would be a good idea to use some of my gained knowledge, having rec
 
 ### POSTMAN url's:
 
-<u>Create:</u>
+<b>Create:</b>
 
 localhost:8080/record/create		- supply a JSON object containing the record to add.
 
 localhost:8080/record/createMulti	- supply a JSON Array containing 1 or more records.
 
 
-<u>Read:</u>
+<b>Read:</b>
 
 localhost:8080/record/list
 
@@ -79,12 +80,12 @@ localhost:8080/record/list/large	- returns a JSON array of records that have a l
 localhost:8080/record/id/<i>id</i>	- returns a JSON object of a single record 
 
 
-<u>Update:</u>
+<b>Update:</b>
 
 localhost:8080/record/update/<i>id</i> - supply a JSON object containing the only the fields that need to be changed
 
 
-<u>Delete:</u>
+<b>Delete:</b>
 
 localhost:8080/record/delete/<i>id</i> - deletes the record with id
 
@@ -102,6 +103,10 @@ Update:
 
 Delete:
 ![postman Delete][post_d]
+
+### Persistence
+
+![SQL workbench][workbench]
 
 
 ## GitHub integration:
