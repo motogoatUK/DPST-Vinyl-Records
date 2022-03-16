@@ -7,7 +7,9 @@ A QA project designed to allow the storing of a 7" Vinyl record collection along
 
 Added Jira integration. 07/03/2022 SDT.
 
-Simplified ERD diagram 08/03/2022
+https://mototest.atlassian.net/jira/dashboards/10001
+
+ERD diagram:
 
 ![ERD diagram][simple]
 
@@ -23,46 +25,56 @@ Spotify has a library of 82,000,000 songs (as of 2022) source: https://newsroom.
 
 
 #### Jira dashoard:
+
 ![Jira-dash2][Jira2]
 
 [Jira2]:./QA-project-Jira-dashboard2.png
 
 
-###Issues along the way:
+### Issues along the way:
 
-first off condition appears to be a reserved word, so the variable was changed to observation.
+First off, "<strong>condition</strong>" appears to be a reserved word, so the variable name was changed to observation.
 
-I found "Record" was flagging as a "Class of records" - a preview feature of the Java Language! 
+I found "<b>Record</b>" was flagging as a "Class of records" - a preview feature of the Java Language! 
 I just had to make sure to import com.qa.project.domain.Record into my other packages.
 
-I got held up on create when posting multiple objects until Chris pointed out that what I was posting was a list of Records, not just a Record.
+I got held up for a while on my create method when posting multiple records until Chris (Yiangou) pointed out that what I was posting was a list of Records, not just a Record.
+
 
 ### Testing using Postman:
 
 <insert screenshots here>
 
-# I spent longer than I should have setting up an Azure MySQL database for this project.
+#### I spent longer than I should have setting up an Azure MySQL database for this project.
 I thought it would be a good idea to use some of my gained knowledge, having recently passed the Azure fundamentals AZ-900 exam as part of this bootcamp.
 
 
 ### POSTMAN url's:
 
 Create:
+
 localhost:8080/record/create		- supply a JSON object containing the record to add.
+
 localhost:8080/record/createMulti	- supply a JSON Array containing 1 or more records.
 
 
 Read:
+
 localhost:8080/record/list
+
 localhost:8080/record/list/small	- returns a JSON array of records that have a small spindle size.
+
 localhost:8080/record/list/large	- returns a JSON array of records that have a large spindle size.
+
 localhost:8080/record/id/<i>id</i>	- returns a JSON object of a single record 
 
 
 Update:
+
 localhost:8080/record/update/<i>id</i> - supply a JSON object containing the only the fields that need to be changed
 
 
 Delete:
+
 localhost:8080/record/delete/<i>id</i> - deletes the record with id
 
